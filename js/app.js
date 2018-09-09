@@ -43,7 +43,7 @@ card.addEventListener("click",function()
     const previousCard= openedCards[0];
 
 //if there exist an open card
-if(openedCards.lenght== 1)
+if(openedCards.length== 1)
 {
     
     card.classList.add("open" , "show");
