@@ -87,7 +87,8 @@ function isOver()
 {
    if(matchedCards.length === icons.length);
    {
-   alert("GAME OVER"); 
+      
+          alert("GAME OVER"); 
    }
 }
 
