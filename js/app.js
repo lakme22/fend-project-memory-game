@@ -22,6 +22,11 @@ const icons=[
 
 const cardsContainer = document.querySelector(".deck");
 
+//array to hold openedCards
+let openedCards= [];
+//array to hold matchedCards
+let matchedCards= [];
+
 //create cards
 for(let i=0; i<icons.length; i++)
 {
@@ -33,8 +38,57 @@ cardsContainer.appendChild(card);
 //click event
 card.addEventListener("click",function()
 {
-card.classList.add("open" , "show");
+
+    const currentCard= this;
+    const previousCard= openedCards[0];
+
+//if there exist an open card
+if(openedCards.lenght== 1)
+{
+    
+    card.classList.add("open" , "show");
+    openedCards.Push(this);
+
+//compare the 2 opened cards
+if(currentCard.innerHTML=== previousCard.innerHTML)
+{
+    currentCard.classList.add("match");
+    previousCard.classList.add("match");
+
+    //push the matched cards
+    matchedCards.push(currentCard,previousCard);
+    
+    openedCards= [];
+
+    //call the function for gameover
+    isOver();
+}
+else
+{
+    currentCard.classList.remove("open" , "show");
+    previousCard.classList.remove("open" , "show");
+
+    openedCards= [];
+} 
+
+}
+//no opened cards
+else
+{
+    currentCard.classList.add("open" , "show");
+     openedCards.Push(this);
+}
+
 });
+}
+
+//game over
+function isOver()
+{
+   if(matchedCards.length === icons.length);
+   {
+   alert("GAME OVER"); 
+   }
 }
 
 
