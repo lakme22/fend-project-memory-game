@@ -47,7 +47,7 @@ if(openedCards.length== 1)
 {
     
     card.classList.add("open" , "show");
-    openedCards.Push(this);
+    openedCards.push(this);
 
 //compare the 2 opened cards
 if(currentCard.innerHTML=== previousCard.innerHTML)
@@ -76,7 +76,7 @@ else
 else
 {
     currentCard.classList.add("open" , "show");
-     openedCards.Push(this);
+     openedCards.push(this);
 }
 
 });
