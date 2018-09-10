@@ -36,22 +36,31 @@ const card = document.createElement("li");
 card.classList.add("card");
 card.innerHTML = `<i class="${icons[i]}"></i>`;
 cardsContainer.appendChild(card);
-}
 
 //Add click event to each cards
 click(card);
 }
+}
 
+//firstClick indicator
+let firstClick= true;
 //click event
-function(card) {
+function click(card) {
 card.addEventListener("click",function()
 {
+    //start timer after firstClick
+    if(firstClick) {
+            // Start our timer
+            startTimer();
+            // Change our First Click indicator's value
+            firstClick = false;
+        }
 
     const currentCard= this;
     const previousCard= openedCards[0];
 
 //if there exist an open card
-if(openedCards.length== 1)
+if(openedCards.length === 1)
 {
     
     card.classList.add("open" , "show" , "disable");
@@ -88,7 +97,7 @@ function compare(currentCard, previousCard){
 }
 else
 {
-    openedCards= [];
+    
     //wait for 500ms
     setTimeout(function() {
     
@@ -96,8 +105,10 @@ else
     previousCard.classList.remove("open" , "show" , "disable");
     },500);
     
+    openedCards= [];
+}
     //add new move
-    moves();
+    addMove();
 } 
 
 }
@@ -106,6 +117,8 @@ function isOver()
 {
    if(matchedCards.length === icons.length);
    {
+   //stop timer
+   stopTimer();
    alert("GAME OVER"); 
    }
 }
@@ -118,11 +131,14 @@ function addMove(){
     moves++;
     movesContainer.innerHTML= moves;
     //call rating
+    rating();
     
 }
 
 //rating
-const starsContainer= document.querySelector(".stars")
+const starsContainer= document.querySelector(".stars");
+const star = `<li><i class="fa fa-star"></i></li>`;
+starsContainer.innerHTML = star + star + star;
 function rating() {
     switch(moves){
         case 20:
@@ -133,12 +149,26 @@ function rating() {
         case 25:
         starsContainer.innerHTML= `<li><i class="fa-fa-star"></i></li>`;
         break;
-    }
-    if(moves>5){
-        
+    }  
+ }
 
-    }
+//Timer
+const timerContainer = document.querySelector(".timer");
+let liveTimer,
+    totalSeconds = 0;
 
+// Sets default value to the timer's container
+timerContainer.innerHTML = totalSeconds + 's';
+function startTimer() {
+    liveTimer = setInterval(function() {
+        // Increase the totalSeconds by 1
+        totalSeconds++;
+        // Update the HTML Container with the new time
+        timerContainer.innerHTML = totalSeconds + 's';
+    }, 1000);
+}
+function stopTimer() {
+    clearInterval(liveTimer);
 }
 
 //restart
@@ -153,10 +183,25 @@ const restartBtn= document.querySelector(".restart")
        init();
 
        //reset any related variables
-       matchedCards= [];
-       moves= 0;
-       movesContainer.innerHTML= moves;
+      resetGame();
     });
+
+function resetGame() {
+    // Empty the `matchedCards` array
+    matchedCards = [];
+
+    // resets `moves`
+    moves = 0;
+    movesContainer.innerHTML = moves;
+
+    // resets `rating`
+    starsContainer.innerHTML = star + star + star;
+    
+    stopTimer();
+    firstClick = true;
+    totalSeconds = 0;
+    timerContainer.innerHTML = totalSeconds + "s";
+}
 
 //start the game for first time
         init();
