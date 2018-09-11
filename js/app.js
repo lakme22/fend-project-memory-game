@@ -45,20 +45,10 @@ click(card);
 }
 }
 
-//firstClick indicator
-let firstClick= true;
 //click event
 function click(card) {
 card.addEventListener("click",function()
 {
-    //start timer after firstClick
-    if(firstClick) {
-            // Start our timer
-            startTimer();
-            // Change our First Click indicator's value
-            firstClick = false;
-        }
-
     const currentCard= this;
     const previousCard= openedCards[0];
 
