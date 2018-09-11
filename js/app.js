@@ -168,13 +168,13 @@ var modal = document.getElementById('myModal');
 var replay = document.querySelector('.close');
 replay.onclick = function () {
     window.location.reload();
-}
+};
 
 //player restart from the modal
 var btn = document.querySelector('#playAgain');
 btn.onclick = function () {
     window.location.reload();
-}
+};
 
 /*
  * Display the cards on the page
