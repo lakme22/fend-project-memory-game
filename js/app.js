@@ -92,12 +92,16 @@ function compare(currentCard, previousCard){
 
     //push the matched cards
     matchedCards.push(currentCard,previousCard);
-    
+    //variable for card matches
+    let matching = document.querySelectorAll('.match').length;
+    // open the modal if all cards match
+            if (matching === 16) {
+              matchedCards = 1;
+              modal.style.display = 'block';
+              clearTimeout(timing);
+            }
     openedCards= [];
-
-    //call the function for gameover
-    isOver();
-}
+   }
 else
 {
     
@@ -110,32 +114,7 @@ else
     
     openedCards= [];
 }
-    //add new move
-    addMove();
  
-
-}
-//game over
-function isOver()
-{
-   if(matchedCards.length === icons.length)
-   {
-   //stop timer
-   stopTimer();
-   alert("GAME OVER"); 
-   }
-}
-
-//Add moves
-const movesContainer= document.querySelector(".moves");
-let moves= 0;
-movesContainer.innerHTML= 0;
-function addMove(){
-    moves++;
-    movesContainer.innerHTML= moves;
-    //call rating
-    rating();
-    
 }
 
 //rating
@@ -155,57 +134,77 @@ function rating() {
     }  
  }
 
-//Timer
-const timerContainer = document.querySelector(".timer");
-let liveTimer,
-    totalSeconds = 0;
+ // Timer
+  let timer = document.querySelector(".timer");
+  let timing;
+  let minute = 0;
+  let second = 0;
 
-// Sets default value to the timer's container
-timerContainer.innerHTML = totalSeconds + 's';
-function startTimer() {
-    liveTimer = setInterval(function() {
-        // Increase the totalSeconds by 1
-        totalSeconds++;
-        // Update the HTML Container with the new time
-        timerContainer.innerHTML = totalSeconds + 's';
+  function startTimer() {
+    timing = window.setInterval(function () {
+      timer.innerHTML = minute + " mins " + second + " secs ";
+      let timeTook = document.querySelector('.timer').innerText;
+      //console.log(timeTook);
+      second++;
+      if (second == 60) {
+        minute++;
+        second = 0;
+      }
+      if (minute == 60) {
+        hour++;
+        minute = 0;
+      }
+      var youWin = document.querySelector('.content');
+      youWin.innerHTML = `Congratulations! you win *_* Your score is ${starCount}, it took you ${timeTook} to finish,you made ${moves} moves...play again?`;
+      console.log(timeTook);
     }, 1000);
-}
-function stopTimer() {
-    clearInterval(liveTimer);
-}
+  }
 
-//restart
-const restartBtn= document.querySelector(".restart");
-
-    restartBtn.addEventListener("click", function() {
-     
-        //delete cards
-     cardsContainer.innerHTML = "";
-     
-       //call init
-       init();
-
-       //reset any related variables
-      resetGame();
-    });
-
-function resetGame() {
-    // Empty the `matchedCards` array
-    matchedCards = [];
-
-    // resets `moves`
-    moves = 0;
-    movesContainer.innerHTML = moves;
-
-    // resets `rating`
-    starsContainer.innerHTML = star + star + star;
-    
-    stopTimer();
-    firstClick = true;
-    totalSeconds = 0;
-    timerContainer.innerHTML = totalSeconds + "s";
+  function resetTimer() {
+    clearInterval(timing);
+  }
+  startTimer();
+  document.querySelector(".restart").addEventListener("click", resetTimer);
 }
 
+// move counter and star rating
+let moves = 0;
+let moveCounter = document.querySelector(".moves");
+let starOne = document.querySelector("#sO");
+let starTwo = document.querySelector("#sT");
+let starCount = 3;
+
+function moveCount() {
+  moves++;
+  moveCounter.innerHTML = moves;
+  console.log(moves);
+  // remove stars as the move count goes higher
+  if (moves > 8 && moves <= 12) {
+    starOne.style.display = 'none';
+    starCount = 2;
+    console.log(starCount);
+  } else if (moves > 13) {
+    starTwo.style.display = 'none';
+    starCount = 1;
+    console.log(starCount);
+  }
+}
+
+//modal
+var modal = document.getElementById('myModal');
+// let player restart the game without winning
+var replay = document.querySelector('.close');
+replay.onclick = function () {
+  // will fix moving forward as I now know this isn't how we should handle resetting the game
+  window.location.reload();
+}
+
+//player restart from the modal
+var btn = document.querySelector('#playAgain');
+btn.onclick = function () {
+  // will fix moving forward, as I now know this isn't how we should handle resetting the game
+  window.location.reload();
+}
 
 /*
  * Display the cards on the page
