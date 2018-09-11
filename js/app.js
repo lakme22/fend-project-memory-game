@@ -165,7 +165,7 @@ function rating() {
   }
   startTimer();
   document.querySelector(".restart").addEventListener("click", resetTimer);
-}
+
 
 // move counter and star rating
 let moves = 0;
