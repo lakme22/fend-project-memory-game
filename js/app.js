@@ -27,6 +27,8 @@ let openedCards= [];
 //array to hold matchedCards
 let matchedCards= [];
 
+//start the game for first time
+ init();
 //initialize
 function init(){
 //create cards
@@ -109,7 +111,7 @@ else
 }
     //add new move
     addMove();
-} 
+ 
 
 }
 //game over
@@ -172,7 +174,7 @@ function stopTimer() {
 }
 
 //restart
-const restartBtn= document.querySelector(".restart")
+const restartBtn= document.querySelector(".restart");
 
     restartBtn.addEventListener("click", function() {
      
@@ -203,8 +205,7 @@ function resetGame() {
     timerContainer.innerHTML = totalSeconds + "s";
 }
 
-//start the game for first time
-        init();
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
