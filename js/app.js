@@ -32,6 +32,7 @@ let matchedCards= [];
 //initialize
 function init(){
 //create cards
+const array = shuffle(icons);
 for(let i=0; i<icons.length; i++)
 {
 const card = document.createElement("li");
