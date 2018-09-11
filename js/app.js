@@ -118,7 +118,7 @@ else
 //game over
 function isOver()
 {
-   if(matchedCards.length === icons.length);
+   if(matchedCards.length === icons.length)
    {
    //stop timer
    stopTimer();
