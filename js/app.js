@@ -104,24 +104,6 @@ else
     
     openedCards= [];
 }
- 
-}
-
-//rating
-const starsContainer= document.querySelector(".stars");
-const star = `<li><i class="fa fa-star"></i></li>`;
-starsContainer.innerHTML = star + star + star;
-function rating() {
-    switch(moves){
-        case 20:
-        starsContainer.innerHTML= `<li><i class="fa-fa-star"></i></li>
-        <li><i class="fa-fa-star"></i></li>`;
-        break;
-
-        case 25:
-        starsContainer.innerHTML= `<li><i class="fa-fa-star"></i></li>`;
-        break;
-    }  
  }
 
  // Timer
